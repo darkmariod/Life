@@ -45,3 +45,5 @@
 - Configurar JDK 17 con `jenv add /Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home/`
 
 🚀 ¡A darle con todo al estudio!
+
+desde agosto
