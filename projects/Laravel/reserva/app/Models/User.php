@@ -8,19 +8,30 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
+
+     protected $dates = ['deleted_at'];
+
+     // Rows
     protected $fillable = [
-        'name',
+        'nombres',
+        'apellidos',
+        'teléfono',
+        'foto',
         'email',
         'password',
+        'rol_id',
     ];
 
     /**
@@ -42,4 +53,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongTo(Role::class,'rol_id');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function consultantReservations()
+    {
+        return $this->hasMany(Resrevation::class,'consultant_id');
+    }
 }
